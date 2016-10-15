@@ -1,0 +1,10 @@
+
+node_modules
+.idea/workspace.xml
+.idea/
+js/app-compiled.js
+js/app-compiled.js.map
+js/app1-compiled.js
+js/app1-compiled.js.map
+js/app1.js
+js/hello.js
