@@ -1,22 +1,20 @@
 /*Hello World!*/
 import React from 'react';
 var _ = require('lodash');
-var $ = require('jquery');
+
 
 let destination = document.querySelector("#example");
 
 let data = [
-    {'n1': '男', 'n2': 1},
-    {'n1': '男', 'n2': 2},
-    {'n1': '男', 'n2': 3},
-    {'n1': '女', 'n2': 4},
-    {'n1': '女', 'n2': 5}
+    {'n1': '男', 'n2': 1, 'n3': 'ca'},
+    {'n1': '女', 'n2': 1, 'n3': 'ca'},
+    {'n1': '女', 'n2': 1, 'n3': 'ca'}
 ];
-
 
 let columns = [
     {col1: '性别', col2: '年龄'}
 ];
+
 //header section
 class Title extends React.Component {
     render() {
@@ -111,80 +109,18 @@ class List extends React.Component {
     }
 }
 
-class MoreList extends React.Component {
-    render() {
-        return (
-            <div className="wrap-style">
-                <div className="more" onClick={this.props.onClick}>
-                    刷新
-                </div>
-            </div>
-        )
-    }
-}
-
-class Category extends React.Component {
-    render() {
-        return (
-            <div>
-                <button onClick={this.props.btnClickm}>男生</button>
-                <button onClick={this.props.btnClickf}>女生</button>
-            </div>
-        )
-    }
-}
 
 class ReactTable extends React.Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
-        this.btnClickm = this.btnClickm.bind(this);
-        this.btnClickf = this.btnClickf.bind(this);
-        this.state = {
-            data: props.data,
-            data1: props.data
-        }
-    }
-
-    handleClick() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            success: function (v) {
-                let that = this;
-                $.each(v, function () {
-                    that.state.data.push(this);
-                    that.setState({
-                        data: that.state.data1
-                    });
-                })
-            }.bind(this)
-        });
-    };
-
-    btnClickm() {
-        var data = this.state.data1;
-        data = _.filter(data, _.matches({'n1': '男'}));
-        this.setState({
-            data: data
-        })
-    }
-
-    btnClickf() {
-        let data = this.state.data1;
-        data = _.filter(data, _.matches({'n1': '女'}));
-        this.setState({
-            data: data
-        })
+        this.state = {};
     }
 
     render() {
         return (
             <div>
-                <Category btnClickm={this.btnClickm} btnClickf={this.btnClickf}/>
                 <Title columns={this.props.columns}/>
-                <List data={this.state.data}/>
-                <MoreList onClick={this.handleClick}/>
+                <List data={this.props.data}/>
             </div>
         )
     }
