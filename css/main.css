@@ -15,15 +15,9 @@ body {
 .item {
     height: 50px;
     background-color: #ffffff;
-    width: 50%;
+    flex-grow: 1;
     line-height: 50px;
     text-align: center;
-}
-.item:hover {
-    background-color: #66ccff;
-    transition: .3s;
-    color: white;
-    cursor: pointer;
 }
 #example {
     width: 100%;
@@ -43,4 +37,19 @@ body {
     transition: .3s;
     color: white;
     cursor: pointer;
+}
+span {
+    height: 50px;
+    background-color: #ffffff;
+    width: 50%;
+    line-height: 50px;
+    text-align: center;
+    flex-grow: 1;
+}
+.second-style {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    margin-bottom: 2px;
 }
