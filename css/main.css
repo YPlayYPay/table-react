@@ -1,0 +1,46 @@
+body {
+    padding: 50px;
+    background-color: #66ccff;
+    font-family: sans-serif;
+    color: #A9A9A9;
+}
+.wrap-style {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    margin-bottom: 2px;
+    flex-wrap: wrap;
+}
+.item {
+    height: 50px;
+    background-color: #ffffff;
+    width: 50%;
+    line-height: 50px;
+    text-align: center;
+}
+.item:hover {
+    background-color: #66ccff;
+    transition: .3s;
+    color: white;
+    cursor: pointer;
+}
+#example {
+    width: 100%;
+    background-color: #EDEEEF;
+    padding: 5px;
+}
+.more {
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    background-color: #ffffff;
+    border-radius: 6px;
+}
+.more:hover {
+    background-color: #66ccff;
+    transition: .3s;
+    color: white;
+    cursor: pointer;
+}
