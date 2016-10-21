@@ -4,52 +4,26 @@ body {
     font-family: sans-serif;
     color: #A9A9A9;
 }
-.wrap-style {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: flex-start;
-    margin-bottom: 2px;
-    flex-wrap: wrap;
-}
-.item {
-    height: 50px;
-    background-color: #ffffff;
-    flex-grow: 1;
-    line-height: 50px;
-    text-align: center;
-}
+
 #example {
+    cursor: pointer;
     width: 100%;
     background-color: #EDEEEF;
     padding: 5px;
 }
-.more {
-    height: 50px;
-    width: 100%;
-    text-align: center;
-    line-height: 50px;
-    background-color: #ffffff;
-    border-radius: 6px;
-}
-.more:hover {
-    background-color: #66ccff;
-    transition: .3s;
-    color: white;
-    cursor: pointer;
-}
-span {
-    height: 50px;
-    background-color: #ffffff;
-    width: 50%;
-    line-height: 50px;
-    text-align: center;
-    flex-grow: 1;
-}
-.second-style {
+.wrap-style {
     display: flex;
     width: 100%;
     height: 100%;
-    justify-content: flex-start;
+    justify-content: center;
     margin-bottom: 2px;
+}
+.item {
+    height: 100%;
+    background-color: #ffffff;
+    flex-grow: 1;
+    line-height: 100%;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
 }
