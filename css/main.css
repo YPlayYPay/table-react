@@ -1,6 +1,6 @@
 body {
     padding: 50px;
-    background-color: #66ccff;
+    background-color: #fff;
     font-family: sans-serif;
     color: #A9A9A9;
 }
@@ -19,11 +19,28 @@ body {
     margin-bottom: 2px;
 }
 .item {
-    height: 100%;
+    height: 50px;
     background-color: #ffffff;
     flex-grow: 1;
-    line-height: 100%;
-    padding: 10px 0;
+    line-height: 50px;
+    /*padding: 10px 0;*/
     text-align: center;
     width: 100%;
+}
+.classify {
+    background-color: #EDEEEF;
+    height: 70px;
+    width: 70px;
+    /*transform-style: preserve-3d;*/
+    position: absolute;
+    left: 83%;
+    top: 23%;
+}
+
+.classify input{
+    width: 30px;
+    margin: 3px 0;
+}
+.zz{
+    position: relative;
 }

@@ -2,6 +2,7 @@
  * Created by Administrator on 2016/10/21.
  */
 import React from 'react';
+import $ from 'jquery';
 
 let destination = document.querySelector("#example");
 
@@ -35,19 +36,56 @@ let columns = [
 
 //header
 class Header extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(){
+        console.log('a');
+    }
+
     render() {
-        return (
-            <div className="wrap-style">
-                {
-                    this.props.columns.map((result, index) => (
-                            <div key={index} className="item">{result.title}</div>
-                        )
+        let colNodes = this.props.columns.map(function (result, index) {
+               if(result.key=='gender'){
+                    return(
+                        <div key={index} className="item" >
+                                    {result.title}
+                        </div>
                     )
-                }
-            </div>
+               }
+                   return(
+                       <div key={index} className="item">{result.title}</div>
+                   )
+            }
+        );
+        return (
+                <div className="wrap-style" onClick={this.handleClick}>
+                        {colNodes}
+                </div>
         )
     }
 }
+
+class Classify extends React.Component{
+    constructor(props){
+        super(props)
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+    }
+    render(){
+        return(
+                <form className="classify" onSubmit={this.handleSubmit}>
+                    <input type="checkbox" name="gender" value='male'/>男
+                    <input type="checkbox" name="gender" value='female'/>女
+                </form>
+        )
+        
+    }
+}
+
 
 //data
 class Content extends React.Component {
@@ -103,20 +141,24 @@ class Cell extends React.Component {
 class Table extends React.Component {
     constructor() {
         super();
-        this.state = {}
+        this.state = {};
+
     }
+
+
 
     render() {
         return (
-            <div>
-                <Header columns={this.props.columns}/>
+            <div className="zz">
+                <Header columns={this.props.columns}  />
                 <Content data={this.props.data}/>
+                <Classify />
             </div>
         )
     }
 }
 
 React.render(
-    <Table columns={columns} data={data}/>,
+    <Table columns={columns} data={data} colSelect={columns[2].key}/>,
     destination
 );
