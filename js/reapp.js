@@ -4,6 +4,7 @@
 import React from 'react';
 import $ from 'jquery';
 
+
 let destination = document.querySelector("#example");
 
 let data = [{
@@ -35,56 +36,65 @@ let columns = [
 ];
 
 //header
+
+class Classify extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <form id="classify">
+                <input type="checkbox" name="gender" value='male'/>男
+                <input type="checkbox" name="gender" value='female'/>女
+                <input type="submit" value='ok' onClick={this.props.handleSubmit}/>
+            </form>
+        )
+    }
+}
+
+
 class Header extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.show = this.show.bind(this);
     }
-
-    handleClick(){
-        console.log('a');
+    show() {
+        var cl = document.querySelector('#classify');
+        if (cl.style.display == 'block') {
+            cl.style.display = 'none'
+        } else {
+            cl.style.display = 'block'
+        }
+    }
+    handleClick(e) {
+        if (e.target.innerHTML == '性别') {
+            this.show();
+        }
     }
 
     render() {
         let colNodes = this.props.columns.map(function (result, index) {
-               if(result.key=='gender'){
-                    return(
-                        <div key={index} className="item" >
-                                    {result.title}
+                if (result.key == 'gender') {
+                    return (
+                        <div key={index} className="item">
+                            {result.title}
                         </div>
                     )
-               }
-                   return(
-                       <div key={index} className="item">{result.title}</div>
-                   )
+                }
+                return (
+                    <div key={index} className="item">{result.title}</div>
+                )
             }
         );
         return (
-                <div className="wrap-style" onClick={this.handleClick}>
-                        {colNodes}
-                </div>
+            <div className="wrap-style" onClick={this.handleClick}>
+                {colNodes}
+            </div>
         )
     }
 }
 
-class Classify extends React.Component{
-    constructor(props){
-        super(props)
-    }
-
-    handleSubmit(e){
-        e.preventDefault();
-    }
-    render(){
-        return(
-                <form className="classify" onSubmit={this.handleSubmit}>
-                    <input type="checkbox" name="gender" value='male'/>男
-                    <input type="checkbox" name="gender" value='female'/>女
-                </form>
-        )
-        
-    }
-}
 
 
 //data
@@ -142,23 +152,25 @@ class Table extends React.Component {
     constructor() {
         super();
         this.state = {};
-
+        this.handleSubmit=this.handleSubmit.bind(this);
     }
 
-
-
+    handleSubmit(e){
+        e.preventDefault();
+        console.log($('#classify').serialize());
+    }
     render() {
         return (
             <div className="zz">
-                <Header columns={this.props.columns}  />
+                <Header columns={this.props.columns}/>
                 <Content data={this.props.data}/>
-                <Classify />
+                <Classify url={this.props.url} handleSubmit={this.handleSubmit}/>
             </div>
         )
     }
 }
 
 React.render(
-    <Table columns={columns} data={data} colSelect={columns[2].key}/>,
+    <Table columns={columns} data={data} colSelect={columns[2].key} url='url'/>,
     destination
 );
