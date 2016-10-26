@@ -4,7 +4,7 @@
   "description": "generate webpack react demo",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --devtool eval-source-map --progress --colors --hot --inline ",
+    "start": "webpack-dev-server --devtool eval-source-map --progress --colors --hot --inline ",
     "build": "webpack --progress --colors"
   },
   "repository": {
