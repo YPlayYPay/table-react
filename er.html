@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!--
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/JSXTransformer.js"></script>
+    -->
+    <script src="https://cdn.bootcss.com/react/15.1.0/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.1.0/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-core/5.8.34/browser.min.js"></script>
+    <style>
+        .ui-table {
+            width: 100%;
+        }
+
+        .ui-table th, .ui-table td {
+            padding: 5px 10px;
+            border: 1px solid #999;
+            text-align: center
+        }
+
+        .ui-table td {
+            font-size: 12px;
+        }
+
+        .ui-select, .ui-button {
+            margin: 3px 10px;
+            width: 70px;
+            height: 30px;
+        }
+
+        .ui-button {
+            border: 1px solid #000;
+            background-color: #19379d;
+            color: #fff;
+            font: 14px "微软雅黑";
+            cursor: pointer;
+        }
+
+        .ui-span {
+            margin: 0 0 0 15px;
+        }
+    </style>
+</head>
+<body>
+<div id="BODY1"></div>
+<script>
+    /* 模拟数据 */
+    var _data = [
+        {id: 0, name: "关羽", country: "中国"},
+        {id: 1, name: "宫本", country: "日本"},
+        {id: 2, name: "金正日", country: "朝鲜"},
+        {id: 3, name: "雨田", country: "日本"},
+        {id: 4, name: "朱元璋", country: "中国"},
+        {id: 5, name: "丘吉尔", country: "英国"},
+        {id: 6, name: "戴高乐", country: "法国"}
+    ];
+    /* 二级联动 */
+    var _options = [
+        {id: 0, zhou: "全部"},
+        {id: 1, zhou: "亚洲", country: ["中国", "日本", "朝鲜"]},
+        {id: 2, zhou: "欧洲", country: ["英国", "法国"]}
+    ];
+</script>
+<script type="text/babel">
+    /* select */
+    var Option1 = React.createClass({
+        option: function () {
+            return this.props.data.map(function (com) {
+                return (<option key={com.id} value={com.id}>{com.zhou}</option>);
+            });
+        },
+        render: function () {
+            return (<select className="ui-select" onChange={this.props.onChange}>{this.option()}</select>);
+        }
+    });
+    var Option2 = React.createClass({
+        option: function () {
+            var id = this.props.option1Value;
+            console.log(id);
+            if (id == 0) {
+                return this.props.data.map(function (option) {
+                    if (option.country) {
+                        return option.country.map(function (com) {
+                            return (<option>{com}</option>);
+                        });
+                    } else {
+                        return (<option>全部</option>);
+                    }
+                });
+            } else {
+                return this.props.data[id].country.map(function (com) {
+                    return (<option>{com}</option>);
+                });
+            }
+        },
+        render: function () {
+            return (<select className="ui-select">{this.option()}</select>);
+        }
+    });
+    /* 表格展示数据 */
+    var Table = React.createClass({
+        display: function () {
+            var v = this.props.option2Value;
+            if (v == "" || v == "全部") {
+                return this.props.data.map(function (com) {
+                    return (
+                            <tr key={com.id}>
+                                <td>{com.name}</td>
+                                <td>{com.country}</td>
+                            </tr>
+                    );
+                });
+            } else {
+                return this.props.data.map(function (com) {
+                    return com.country == v ? (
+                            <tr key={com.id}>
+                                <td>{com.name}</td>
+                                <td>{com.country}</td>
+                            </tr>
+                    ) : null;
+                });
+            }
+        },
+        render: function () {
+            return (
+                    <table className="ui-table">
+                        <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>国家</th>
+                        </tr>
+                        </thead>
+                        <tbody>{this.display()}</tbody>
+                    </table>
+            );
+        }
+    });
+    /* div整体 */
+    var DIV = React.createClass({
+        option1Value: function () {
+            var s = ReactDOM.findDOMNode(this.refs.Option1);
+            return s ? s.value : 0;
+        },
+        option2Value: function () {
+            var s = ReactDOM.findDOMNode(this.refs.Option2);
+            return s ? s.value : "全部";
+        },
+        option1ChangeValue: function () {
+            this.setState({
+                value1: this.option1Value()
+            });
+        },
+        find: function () {
+            this.setState({
+                value2: this.option2Value()
+            });
+        },
+        getInitialState: function () {
+            return ({
+                value1: this.option1Value(),
+                value2: this.option2Value()
+            });
+        },
+        render: function () {
+            return (
+                    <div>
+                        <p>
+                            <Option1 ref="Option1" data={_options} onChange={this.option1ChangeValue}/>
+                            <Option2 ref="Option2" data={_options} option1Value={this.state.value1}/>
+                            <button className="ui-button" onClick={this.find}>查找</button>
+                            <span className="ui-span">你查找的内容是：{this.state.value2}</span>
+                        </p>
+                        <Table data={_data} option2Value={this.state.value2}/>
+                    </div>
+            );
+        }
+    });
+    /* 渲染 */
+    var BODY1 = document.getElementById("BODY1");
+    ReactDOM.render(<DIV />, BODY1);
+</script>
+</body>
+</html>
