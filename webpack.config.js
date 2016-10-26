@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 module.exports = {
     entry: [
-        "./js/reapp.js"
+        "./js/app.js"
     ],
     output: {
         path: './build',
